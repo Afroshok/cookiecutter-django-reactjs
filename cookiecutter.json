@@ -24,10 +24,7 @@
     "9.6",
     "9.5"
   ],
-  "js_task_runner": [
-    "None",
-    "Gulp"
-  ],
+  "js_task_runner": "react",
   "cloud_provider": [
     "AWS",
     "GCP",

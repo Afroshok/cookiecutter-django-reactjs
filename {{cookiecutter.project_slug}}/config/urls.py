@@ -1,40 +1,54 @@
 from django.conf import settings
+from django.urls import include, path, re_path
 from django.conf.urls.static import static
 from django.contrib import admin
-{%- if cookiecutter.use_async == 'y' %}
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-{%- endif %}
-from django.urls import include, path
-from django.views import defaults as default_views
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
-{%- if cookiecutter.use_drf == 'y' %}
-from rest_framework.authtoken.views import obtain_auth_token
+from django.views import defaults as default_views
+{% if cookiecutter.use_drf == 'y' -%}
+from graphene_file_upload.django import FileUploadGraphQLView
 {%- endif %}
+{% if cookiecutter.use_drf == 'y' -%}
+from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework.documentation import include_docs_urls
+{%- endif %}
+
+
+
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
-    path(
-        "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
-    ),
-    # Django Admin, use {% raw %}{% url 'admin:index' %}{% endraw %}
-    path(settings.ADMIN_URL, admin.site.urls),
-    # User management
+    re_path(r'^app/(?P<route>.*)$', TemplateView.as_view(template_name="index.html"), name='app'),
+
+    # User management from django-all-auth
+    path("about/", TemplateView.as_view(template_name="pages/about.html"), name="about"),
     path("users/", include("{{ cookiecutter.project_slug }}.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+
+    # Django Admin, use {% raw %}{% url 'admin:index' %}{% endraw %}
+    path(settings.ADMIN_URL, admin.site.urls),
+
     # Your stuff: custom urls includes go here
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-{%- if cookiecutter.use_async == 'y' %}
-if settings.DEBUG:
-    # Static file serving when using Gunicorn + Uvicorn for local web socket development
-    urlpatterns += staticfiles_urlpatterns()
-{%- endif %}
-{% if cookiecutter.use_drf == 'y' %}
+
+{% if cookiecutter.use_drf == 'y' -%}
 # API URLS
 urlpatterns += [
     # API base url
     path("api/", include("config.api_router")),
     # DRF auth token
     path("auth-token/", obtain_auth_token),
+    # DRF API docs
+    path("api-docs/", include_docs_urls(title="{{ cookiecutter.project_name }} REST API", public=False)),
+]
+{%- endif %}
+
+{% if cookiecutter.js_task_runner == 'react' -%}
+# API URLS
+urlpatterns += [
+    # GraphQL
+    path("graphql/", csrf_exempt(FileUploadGraphQLView.as_view(graphiql=True, pretty=True))),
 ]
 {%- endif %}
 

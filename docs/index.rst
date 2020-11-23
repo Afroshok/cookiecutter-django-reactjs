@@ -17,6 +17,8 @@ Contents:
    developing-locally-docker
    settings
    linters
+   live-reloading-and-sass-compilation
+   create-react-app
    testing
    document
    deployment-on-pythonanywhere
