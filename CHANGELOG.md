@@ -3,6 +3,11 @@ All enhancements and patches to Cookiecutter Django will be documented in this f
 
 <!-- GENERATOR_PLACEHOLDER -->
 
+## [2020-11-23]
+### Updated
+- Update uvicorn to 0.12.3 ([#2943](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/2943))
+- Update pre-commit to 2.9.0 ([#2942](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/2942))
+
 ## [2020-09-10]
 ### Updated
 - Update isort to 5.5.2 ([#2807](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/2807))
