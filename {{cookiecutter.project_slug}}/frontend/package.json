@@ -13,8 +13,8 @@
     "extends": "react-app"
   },
   "dependencies": {
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
     "react-scripts": "4.0.1"
   },
   "devDependencies": {
@@ -32,7 +32,7 @@
     "axios": "0.21.0",
     "graphql": "15.4.0",
     "graphql-tag": "2.11.0",
-    "graphql-tools": "7.0.2",
+    "graphql-tools": "5.0.0",
     "localforage": "1.9.0",
     "node-sass": "5.0.0",
     "raven-js": "3.27.2",

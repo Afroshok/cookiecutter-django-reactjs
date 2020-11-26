@@ -19,7 +19,7 @@ uvicorn==0.11.8  # https://github.com/encode/uvicorn
 {%- endif %}
 {%- endif %}
 {%- if cookiecutter.use_async == 'y' %}
-uvicorn==0.12.3  # https://github.com/encode/uvicorn
+uvicorn==0.11.8 #  pyup: < 12.0.0 # https://github.com/encode/uvicorn 
 wsproto==0.15.0  # https://github.com/python-hyper/wsproto/
 {%- endif %}
 
